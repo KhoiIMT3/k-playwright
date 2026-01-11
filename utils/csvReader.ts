@@ -3,9 +3,10 @@
 // path -> tìm đường dẫn tuyệt đối
 // csv-parse -> để phân tích file csv
 import { readFile } from 'fs/promises';
-import {join} from 'path'
 import {parse} from 'csv-parse/sync';
 import { readFileSync } from 'fs';
+import path, { join } from "path";
+import { fileURLToPath } from 'url'
 
 // định nghĩa dữ liệu có trong file csv
 export interface LoginData {
