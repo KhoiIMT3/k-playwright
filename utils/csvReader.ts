@@ -8,6 +8,9 @@ import { readFileSync } from 'fs';
 import path, { join } from "path";
 import { fileURLToPath } from 'url'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
 // định nghĩa dữ liệu có trong file csv
 export interface LoginData {
     username: string;
@@ -16,14 +19,14 @@ export interface LoginData {
     description: string;
 }
 
-export const readFileFromCsv =  (): LoginData[] => {
+export const readFileFromCsv = (): LoginData[] => {
     // B1: xác định đường dẫn tới file csv
     // ../data/login-data.csv
     // __dirname: xác định path của file hiện tại (csvReader.ts)
     const csvPath = join(__dirname, '..', 'data', 'login-data.csv')
 
     // B2: đọc file
-    const fileContent =  readFileSync(csvPath)
+    const fileContent = readFileSync(csvPath)
 
     // B3: parse data string => list LoginData
     const data = parse(fileContent, {
