@@ -1,42 +1,42 @@
 name: CI - Chạy test
 
-# Dieu kien de chay pipeline
-# don gian: trigger chay test khi push code len github
-# tao pull request  -> trigger pipeline
+# điều kiện để chạy pipeline
+# đơn giản: trigger chạy test khi push code lên github
+# thực tế:
+# tạo pull request -> trigger pipepline
 # merge pull request -> trigger pipeline
-
 on:
   push:
     branches: [main, master]
 
 jobs:
-  test: #define step test
-    # Chon moi truong de chay step test
-    # ubuntu-latest: chay tren he dieu hanh linux
-    # windows-latest: chay tren he dieu hanh windows
-    # macos-latest: chay tren he dieu hanh macos
+  test: # define step test
+    # chọn môi trường để chạy test
+    # ubuntu-latest: môi trường linux
+    # windows-latest: môi trường windows
+    # macos-latest: môi trường macos
     runs-on: ubuntu-latest
     steps:
-      # B1: clone source code tu github
+      # B1: clone source code từ github
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # B2: Thiet lap moi truong nodejs
+      # B2: thiết lập môi trường nodejs
       - name: Setup Node.js
         uses: actions/setup-node@v4
-        with: 
+        with:
           node-version: '20'
-          cache: 'npm' # cache giup tang toc do build playwright
+          cache: 'npm' # cache này giúp tăng tốc độ build playwright
 
-      # B3: Cat dat cac thu vien co trong source code playwright
+      # B3: cài đặt các thư viện có trong source code playwright
       - name: Install dependencies
         run: npm install
 
-      # B4: Cai browser co san cua playwright
-      # with-deps: cai dat them cac thu vien phu thuoc cua browser
+      # B4: cài các browser có sẵn của playwright
+      # with-deps: cài đặt các thư viện phụ thuộc của browser
       - name: Install playwright browsers
         run: npx playwright install --with-deps
 
-      # B5: Chay test
+      # B5: chạy test
       - name: Run playwright test
-        run: npx playwright test 
+        run: npm run test:get-by-role
